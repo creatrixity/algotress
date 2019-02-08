@@ -10,7 +10,7 @@ module.exports = {
   },
 
   entry: {
-      linkedList: './src/LinkedList/main.js'
+      linkedList: './src/LinkedList/index.js'
   },
 
   mode: 'development',
