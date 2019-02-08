@@ -11,7 +11,8 @@ module.exports = {
 
   entry: {
       linkedList: './src/LinkedList/index.js',
-      doublyLinkedList: './src/DoublyLinkedList/index.js'
+      doublyLinkedList: './src/DoublyLinkedList/index.js',
+      stack: './src/Stack/index.js'
   },
 
   mode: 'development',
@@ -34,6 +35,12 @@ module.exports = {
       inject: true,
       chunks: ['doublyLinkedList'],
       filename: 'doubly-linked-list/index.html'
+    }),
+    new HTMLWebpackPlugin({
+      template: './src/Stack/tmpl.html',
+      inject: true,
+      chunks: ['stack'],
+      filename: 'stack/index.html'
     })
   ]
 };
