@@ -10,23 +10,30 @@ module.exports = {
   },
 
   entry: {
-      linkedList: './src/LinkedList/index.js'
+      linkedList: './src/LinkedList/index.js',
+      doublyLinkedList: './src/DoublyLinkedList/index.js'
   },
 
   mode: 'development',
 
   plugins: [
-      new HTMLWebpackPlugin({
-          template: './src/index.html',
-          inject: true,
-          chunks: [],
-          filename: 'index.html'
-      }),
-      new HTMLWebpackPlugin({
-          template: './src/LinkedList/tmpl.html',
-          inject: true,
-          chunks: ['linkedList'],
-          filename: 'linked-list/index.html'
-      })
+    new HTMLWebpackPlugin({
+      template: './src/index.html',
+      inject: true,
+      chunks: [],
+      filename: 'index.html'
+    }),
+    new HTMLWebpackPlugin({
+      template: './src/LinkedList/tmpl.html',
+      inject: true,
+      chunks: ['linkedList'],
+      filename: 'linked-list/index.html'
+    }),
+    new HTMLWebpackPlugin({
+      template: './src/DoublyLinkedList/tmpl.html',
+      inject: true,
+      chunks: ['doublyLinkedList'],
+      filename: 'doubly-linked-list/index.html'
+    })
   ]
 };
