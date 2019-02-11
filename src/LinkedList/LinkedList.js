@@ -165,7 +165,7 @@ class LinkedList {
     
     // As long as we have a valid node, print its value.
     while (node !== null) {
-      console.log(node);
+      console.log(node.value);
       node = node.getNext();
     }
   }
