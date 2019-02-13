@@ -75,15 +75,12 @@ class LinkedList {
     
     while (currentNode) {
       if (currentNode.getValue() === linkedListNode.getValue()) {
+        // We have found our attachment node.
         hasFoundNode = 1;
-        // Otherwise, we have no previous node and we must still be at the head.
-        if (previousNode) {
-          nodeToBeAttached.setNext(currentNode.getNext());
-          currentNode.setNext(nodeToBeAttached);
-        } else {
-          nodeToBeAttached.setNext(currentNode.getNext());
-          currentNode.setNext(nodeToBeAttached);
-        }
+        
+        // Add the node to the list.
+        nodeToBeAttached.setNext(currentNode.getNext());
+        currentNode.setNext(nodeToBeAttached);
       }
       
       previousNode = currentNode;

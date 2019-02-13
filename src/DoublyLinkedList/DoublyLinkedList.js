@@ -62,6 +62,62 @@ class DoublyLinkedList {
   }
   
   /**
+   * Adds a doubly linked list node before a node that contains a certain value.
+   * 
+   * @param {Object<DoublyLinkedListNode>} doublyLinkedListNode
+   * @param {Object<DoublyLinkedListNode>} nodeToBeAttached
+   * 
+   * @returns {Void}
+   */
+  addBefore (doublyLinkedListNode, nodeToBeAttached){
+    // Start the search at the head node.
+    let currentNode = this.head;
+    let previousNode = null;
+    
+    // Tracks our search status.
+    let hasFoundNode = 0;
+    
+    while (currentNode) {
+      // If we've found our node.
+      if (currentNode.getValue() === doublyLinkedListNode.getValue()) {
+        // We have found our attachment node.
+        hasFoundNode = 1;
+        
+        // If the current node has no previous pointer then we are at the head.
+        // Otherwise, then attach at the correct position.
+        if (!currentNode.getPrevious()) {
+          // Set new previous and next nodes for the incoming node.
+          nodeToBeAttached.setPrevious(currentNode);
+          nodeToBeAttached.setNext(currentNode.getNext());
+          
+          // Attach the incoming node to the new positions.
+          currentNode.getNext().setPrevious(nodeToBeAttached);
+          currentNode.setNext(nodeToBeAttached);
+        } else {
+          // We update the previous and next nodes of the incoming node.
+          nodeToBeAttached.setPrevious(currentNode.getPrevious());
+          nodeToBeAttached.setNext(currentNode);
+
+          // We attach the incoming node before the current node.
+          currentNode.getPrevious().setNext(nodeToBeAttached);
+          currentNode.setPrevious(nodeToBeAttached);
+        }
+      }
+      
+      // Keep the iteration going.
+      previousNode = currentNode;
+      currentNode = currentNode.getNext();
+    }
+    
+    if (!hasFoundNode) {
+      throw new Error('Could not find a node with the value: ' + doublyLinkedListNode.getValue());
+      return;
+    }
+    
+    this.count = this.count + 1;
+  }
+  
+  /**
    * Removes a node from the front of the linked list.
    *  
    * @returns {Void}

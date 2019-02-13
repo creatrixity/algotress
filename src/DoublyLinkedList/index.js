@@ -13,12 +13,9 @@ function test (){
   teamList.addFirst(secondNode);
   teamList.addFirst(thirdNode); 
 
-  teamList.remove('Victor Nilsson Lindelof');
-  teamList.addFirst(fourthNode); 
-
+  teamList.addBefore(secondNode, fourthNode); 
+  
   teamList.printAll();
-
-  console.log(teamList.has('Donald Knuth') && `Hurray for the Knuth!`);  
 }
 
 export {
