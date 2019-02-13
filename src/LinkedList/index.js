@@ -6,21 +6,19 @@ function test() {
   const secondNode = new LinkedListNode('Victor Nilsson Lindelof');
   const thirdNode = new LinkedListNode('Luke Shaw');
   const fourthNode = new LinkedListNode('Phil Jones');
+  const fifthNode = new LinkedListNode('Nemanja Matic');
 
   const teamList = new LinkedList();
 
   teamList.addFirst(firstNode);
   teamList.addFirst(secondNode);
   teamList.addFirst(thirdNode); 
-
-  teamList.remove('Victor Nilsson Lindelof');
-  teamList.addFirst(fourthNode); 
-
-  teamList.printAll();
-
+  teamList.addFirst(fifthNode);
+  
+  teamList.addBefore(thirdNode, fourthNode);
+  
   console.log(teamList.has('David de Gea') && `You ain't never lied, David de Gea still in this bitch.`);
 }
-
 
 export {
   LinkedList,

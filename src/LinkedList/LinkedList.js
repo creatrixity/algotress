@@ -60,6 +60,45 @@ class LinkedList {
   }
   
   /**
+   * Adds a linked list node before a node that contains a certain value.
+   * 
+   * @param {Object<LinkedListNode>} linkedListNode
+   * @param {Object<LinkedListNode>} nodeToBeAttached
+   * 
+   * @returns {Void}
+   */
+  addBefore (linkedListNode, nodeToBeAttached){
+    // Start the search at the head node.
+    let currentNode = this.head;
+    let previousNode = null;
+    let hasFoundNode = 0;
+    
+    while (currentNode) {
+      if (currentNode.getValue() === linkedListNode.getValue()) {
+        hasFoundNode = 1;
+        // Otherwise, we have no previous node and we must still be at the head.
+        if (previousNode) {
+          nodeToBeAttached.setNext(currentNode.getNext());
+          currentNode.setNext(nodeToBeAttached);
+        } else {
+          nodeToBeAttached.setNext(currentNode.getNext());
+          currentNode.setNext(nodeToBeAttached);
+        }
+      }
+      
+      previousNode = currentNode;
+      currentNode = currentNode.getNext();
+    }
+    
+    if (!hasFoundNode) {
+      throw new Error('Could not find a node with the value: ' + linkedListNode.getValue());
+      return;
+    }
+    
+    this.count = this.count + 1;
+  }
+  
+  /**
    * Removes a node from the front of the linked list.
    *  
    * @returns {Void}
@@ -100,7 +139,7 @@ class LinkedList {
     let currentNode = this.head;
     
     // As long as we are yet to reach the tail node of our list keep searching.
-    while (currentNode.next !== this.tail) {
+    while (currentNode.getNext() !== this.tail) {
       currentNode = currentNode.getNext();
     }
     
