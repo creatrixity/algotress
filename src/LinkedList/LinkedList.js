@@ -78,9 +78,16 @@ class LinkedList {
         // We have found our attachment node.
         hasFoundNode = 1;
         
-        // Add the node to the list.
-        nodeToBeAttached.setNext(currentNode.getNext());
-        currentNode.setNext(nodeToBeAttached);
+        // We are at the tail; Attach the incoming node before the tail.
+        // Otherwise we attach within the list.
+        if (!currentNode.getNext()) {
+          nodeToBeAttached.setNext(currentNode);
+          previousNode.setNext(nodeToBeAttached);
+        } else {
+          // Add the node to the list.
+          nodeToBeAttached.setNext(currentNode.getNext());
+          currentNode.setNext(nodeToBeAttached);          
+        }
       }
       
       previousNode = currentNode;

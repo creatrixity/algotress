@@ -15,7 +15,9 @@ function test() {
   teamList.addFirst(thirdNode); 
   teamList.addFirst(fifthNode);
   
-  teamList.addBefore(thirdNode, fourthNode);
+  teamList.addBefore(fifthNode, fourthNode);
+  
+  teamList.printAll();
   
   console.log(teamList.has('David de Gea') && `You ain't never lied, David de Gea still in this bitch.`);
 }
