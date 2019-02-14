@@ -60,6 +60,57 @@ class LinkedList {
   }
   
   /**
+   * Adds a linked list node before a node that contains a certain value.
+   * 
+   * @param {Object<LinkedListNode>} linkedListNode
+   * @param {Object<LinkedListNode>} nodeToBeAttached
+   * 
+   * @returns {Void}
+   */
+  addBefore (linkedListNode, nodeToBeAttached){
+    // Start the search at the head node.
+    let currentNode = this.head;
+    let previousNode = null;
+    let hasFoundNode = 0;
+        
+    while (currentNode) {
+      if (currentNode.getValue() === linkedListNode.getValue()) {
+        // We have found our attachment node.
+        hasFoundNode = 1;
+        
+        // We are at the tail; Attach the incoming node before the tail.
+        // Otherwise we attach within the list.
+        if (!currentNode.getNext()) {
+          // If we have a previous node, then we have more than a single node in the list.
+          // Otherwise, we update the new head as the incoming node.
+          if (previousNode) {
+            nodeToBeAttached.setNext(currentNode);
+            previousNode.setNext(nodeToBeAttached);            
+          } else {
+            nodeToBeAttached.setNext(currentNode);
+            this.head = nodeToBeAttached;
+          }
+        } else {
+          // Add the node to the list.
+          nodeToBeAttached.setNext(currentNode);
+          previousNode.setNext(nodeToBeAttached);
+
+        }
+      }
+      
+      previousNode = currentNode;
+      currentNode = currentNode.getNext();
+    }
+    
+    if (!hasFoundNode) {
+      throw new Error('Could not find a node with the value: ' + linkedListNode.getValue());
+      return;
+    }
+    
+    this.count = this.count + 1;
+  }
+  
+  /**
    * Removes a node from the front of the linked list.
    *  
    * @returns {Void}
@@ -100,7 +151,7 @@ class LinkedList {
     let currentNode = this.head;
     
     // As long as we are yet to reach the tail node of our list keep searching.
-    while (currentNode.next !== this.tail) {
+    while (currentNode.getNext() !== this.tail) {
       currentNode = currentNode.getNext();
     }
     
@@ -165,7 +216,7 @@ class LinkedList {
     
     // As long as we have a valid node, print its value.
     while (node !== null) {
-      console.log(node);
+      console.log(node.value);
       node = node.getNext();
     }
   }

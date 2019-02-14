@@ -40,7 +40,16 @@ class DoublyLinkedListNode {
   getNext() {
     return this.next;
   }
-  
+
+  /**
+   * Returns the previous chained node to this one.
+   * 
+   * @returns {Object<DoublyLinkedListNode>}
+   */
+  getPrevious() {
+    return this.previous;
+  }
+
   /**
    * Returns the value of this node.
    * 

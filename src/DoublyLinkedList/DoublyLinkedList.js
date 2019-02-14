@@ -62,6 +62,63 @@ class DoublyLinkedList {
   }
   
   /**
+   * Adds a doubly linked list node before a node that contains a certain value.
+   * 
+   * @param {Object<DoublyLinkedListNode>} doublyLinkedListNode
+   * @param {Object<DoublyLinkedListNode>} nodeToBeAttached
+   * 
+   * @returns {Void}
+   */
+  addBefore (doublyLinkedListNode, nodeToBeAttached){
+
+    if (this.getCount() <= 1) {
+      this.addFirst(nodeToBeAttached);
+    } else {
+      // Start the search at the head node.
+      let currentNode = this.head;
+
+      // Tracks our search status.
+      let hasFoundNode = 0;
+
+      // We keep searching if this variable is not null.
+      while (currentNode) {
+        
+        // We have found our site of attachment.
+        if (currentNode.getValue() === doublyLinkedListNode.getValue()) {
+          // Mark our search as successful.
+          hasFoundNode = 1;
+          
+          // Update the next and previous links within our incoming node.
+          nodeToBeAttached.setNext(currentNode);
+          nodeToBeAttached.setPrevious(currentNode.getPrevious());
+          
+          // If we have a previous node, we are not at the head.
+          // Otherwise, we are at the head of the linked list and we make it the new head.
+          if (currentNode.getPrevious()) {
+           // Update relevant nodes pointera to our incoming node.
+            currentNode.getPrevious().setNext(nodeToBeAttached);
+            currentNode.setPrevious(nodeToBeAttached);
+          } else {
+            this.addFirst(nodeToBeAttached);
+          }
+        }
+
+        // Keep the iteration going.
+        previousNode = currentNode;
+        currentNode = currentNode.getNext();
+      }
+      
+      // Throw an exception if we fail to find the node of interest.
+      if (!hasFoundNode) {
+        throw new Error('Could not find a node with the value: ' + doublyLinkedListNode.getValue());
+        return;
+      }
+
+      this.count = this.count + 1;
+    }
+  }
+  
+  /**
    * Removes a node from the front of the linked list.
    *  
    * @returns {Void}
@@ -166,7 +223,7 @@ class DoublyLinkedList {
     
     // As long as we have a valid node, print its value.
     while (node !== null) {
-      console.log(node);
+      console.log(node.getValue());
       node = node.getNext();
     }
   }
