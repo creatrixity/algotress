@@ -13,7 +13,7 @@ function test (){
   teamList.addFirst(secondNode);
   teamList.addFirst(thirdNode); 
 
-  teamList.addBefore(secondNode, fourthNode); 
+  teamList.addBefore(thirdNode, fourthNode); 
   
   teamList.printAll();
 }

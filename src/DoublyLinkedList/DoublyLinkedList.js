@@ -70,51 +70,52 @@ class DoublyLinkedList {
    * @returns {Void}
    */
   addBefore (doublyLinkedListNode, nodeToBeAttached){
-    // Start the search at the head node.
-    let currentNode = this.head;
-    let previousNode = null;
-    
-    // Tracks our search status.
-    let hasFoundNode = 0;
-    
-    while (currentNode) {
-      // If we've found our node.
-      if (currentNode.getValue() === doublyLinkedListNode.getValue()) {
-        // We have found our attachment node.
-        hasFoundNode = 1;
-        
-        // If the current node has no previous pointer then we are at the head.
-        // Otherwise, then attach at the correct position.
-        if (!currentNode.getPrevious()) {
-          // Set new previous and next nodes for the incoming node.
-          nodeToBeAttached.setPrevious(currentNode);
-          nodeToBeAttached.setNext(currentNode.getNext());
-          
-          // Attach the incoming node to the new positions.
-          currentNode.getNext().setPrevious(nodeToBeAttached);
-          currentNode.setNext(nodeToBeAttached);
-        } else {
-          // We update the previous and next nodes of the incoming node.
-          nodeToBeAttached.setPrevious(currentNode.getPrevious());
-          nodeToBeAttached.setNext(currentNode);
 
-          // We attach the incoming node before the current node.
-          currentNode.getPrevious().setNext(nodeToBeAttached);
-          currentNode.setPrevious(nodeToBeAttached);
+    if (this.getCount() <= 1) {
+      this.addFirst(nodeToBeAttached);
+    } else {
+      // Start the search at the head node.
+      let currentNode = this.head;
+
+      // Tracks our search status.
+      let hasFoundNode = 0;
+
+      // We keep searching if this variable is not null.
+      while (currentNode) {
+        
+        // We have found our site of attachment.
+        if (currentNode.getValue() === doublyLinkedListNode.getValue()) {
+          // Mark our search as successful.
+          hasFoundNode = 1;
+          
+          // Update the next and previous links within our incoming node.
+          nodeToBeAttached.setNext(currentNode);
+          nodeToBeAttached.setPrevious(currentNode.getPrevious());
+          
+          // If we have a previous node, we are not at the head.
+          // Otherwise, we are at the head of the linked list and we make it the new head.
+          if (currentNode.getPrevious()) {
+           // Update relevant nodes pointera to our incoming node.
+            currentNode.getPrevious().setNext(nodeToBeAttached);
+            currentNode.setPrevious(nodeToBeAttached);
+          } else {
+            this.addFirst(nodeToBeAttached);
+          }
         }
+
+        // Keep the iteration going.
+        previousNode = currentNode;
+        currentNode = currentNode.getNext();
       }
       
-      // Keep the iteration going.
-      previousNode = currentNode;
-      currentNode = currentNode.getNext();
+      // Throw an exception if we fail to find the node of interest.
+      if (!hasFoundNode) {
+        throw new Error('Could not find a node with the value: ' + doublyLinkedListNode.getValue());
+        return;
+      }
+
+      this.count = this.count + 1;
     }
-    
-    if (!hasFoundNode) {
-      throw new Error('Could not find a node with the value: ' + doublyLinkedListNode.getValue());
-      return;
-    }
-    
-    this.count = this.count + 1;
   }
   
   /**
@@ -222,7 +223,7 @@ class DoublyLinkedList {
     
     // As long as we have a valid node, print its value.
     while (node !== null) {
-      console.log(node);
+      console.log(node.getValue());
       node = node.getNext();
     }
   }

@@ -1,4 +1,5 @@
 import Queue from './ArrayQueue';
+import PriorityQueue from './LinkedListPriorityQueue';
 
 function testLinkedListQueue (){
   const costlyPlayers = new Queue();
@@ -14,6 +15,18 @@ function testLinkedListQueue (){
   console.log('These players are: \n');
   costlyPlayers.printAll();
   console.log('The most expensive player here is', costlyPlayers.peek());  
+}
+
+function testLinkedListPriorityQueue (){
+  const sizes = new PriorityQueue();
+  
+  sizes.enqueue(20);
+  sizes.enqueue(40);
+  sizes.enqueue(15);
+  sizes.enqueue(30);
+//  sizes.enqueue(10.5);
+  
+  sizes.printAll();
 }
 
 function testArrayQueue (){
@@ -32,6 +45,6 @@ function testArrayQueue (){
   bestPlayers.printAll();
 }
 
-testArrayQueue();
+testLinkedListPriorityQueue();
 
 export default Queue;

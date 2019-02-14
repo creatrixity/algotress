@@ -72,7 +72,7 @@ class LinkedList {
     let currentNode = this.head;
     let previousNode = null;
     let hasFoundNode = 0;
-    
+        
     while (currentNode) {
       if (currentNode.getValue() === linkedListNode.getValue()) {
         // We have found our attachment node.
@@ -81,12 +81,20 @@ class LinkedList {
         // We are at the tail; Attach the incoming node before the tail.
         // Otherwise we attach within the list.
         if (!currentNode.getNext()) {
-          nodeToBeAttached.setNext(currentNode);
-          previousNode.setNext(nodeToBeAttached);
+          // If we have a previous node, then we have more than a single node in the list.
+          // Otherwise, we update the new head as the incoming node.
+          if (previousNode) {
+            nodeToBeAttached.setNext(currentNode);
+            previousNode.setNext(nodeToBeAttached);            
+          } else {
+            nodeToBeAttached.setNext(currentNode);
+            this.head = nodeToBeAttached;
+          }
         } else {
           // Add the node to the list.
-          nodeToBeAttached.setNext(currentNode.getNext());
-          currentNode.setNext(nodeToBeAttached);          
+          nodeToBeAttached.setNext(currentNode);
+          previousNode.setNext(nodeToBeAttached);
+
         }
       }
       
